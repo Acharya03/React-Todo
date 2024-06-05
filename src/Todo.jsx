@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Todo.css'
 const Todo = () => {
-    const [todos,setTodos] = useState([]);
+    
     const[inputValue,setInputValue] = useState('');
     const[editMode,setEditMode] = useState(false);
     const[editId,setEditId] = useState(null);
     const[editValue,setEditValue] = useState('');
+
+    const getData = () => {
+        const storedTodos = localStorage.getItem('todos')
+        if(storedTodos)    return JSON.parse(storedTodos)
+        else return []
+    }
+    const [todos, setTodos] = useState(getData)
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }, [todos])
+
 
     const addTodo = () => {
         if(inputValue.trim()!== ''){
