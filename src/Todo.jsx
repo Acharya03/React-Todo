@@ -29,6 +29,9 @@ const Todo = () => {
             setTodos([...todos,newTodo]);
             setInputValue('');
         }
+        else{
+            alert("Enter a task!");
+        }
     }
     const deleteTodo = (id) =>{
         const updateTodos = todos.filter((todo) => todo.id !== id);
