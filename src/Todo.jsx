@@ -52,6 +52,15 @@ const Todo = () => {
         setEditId(null);
         setEditValue('');
     }
+    const handleChange = (id) => {
+        const newTodos = [...todos]
+        newTodos.forEach((curTodo) => {
+            if(curTodo.id === id) {
+                curTodo.isCompleted = !curTodo.isCompleted
+            }
+        })
+        updateTodo(newTodos)
+    }
   return (
     <div className='todo-container'>
        <h2>ToDo List</h2>
@@ -74,8 +83,16 @@ const Todo = () => {
        <ul>
         {todos.map((todo)=>(
             <li key={todo.id}>
+                <span>
                 {todo.text}
+                </span>
+               
                 <div>
+                <input 
+                            type="checkbox" 
+                            checked={todo.isCompleted}
+                            onChange={() => handleChange(todo.id)}
+                        />
                 <button onClick={()=>deleteTodo(todo.id)}>Delete</button>
                 <button onClick={()=>enterEditMode(todo.id)}>Edit</button>
                 </div>            
